@@ -963,7 +963,7 @@ let products = [
     "name": "Original Frankfurter grüne Soße"
     }
 ]
-
+let lastCreatedId = 100;
 // const cors = require('cors');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -971,13 +971,9 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.listen(8080, () => {
-    console.log('Server running on 8080')
-}) 
-
 //get all products
 app.get('/products', (req, res) => {
-    res.send(products)
+    res.status(200).send(products)
 })
 
 //get product by id
@@ -1005,3 +1001,17 @@ app.delete('/products/:id',(req,res) => {
     else
         res.status(404).json({message: 'Product Not Found!'})
 })
+
+//post product
+app.post('/products',(req,res) => {
+    products.push({
+        ...req.body,
+        id: lastCreatedId
+      });
+      res.status(201).send({message:'Products added!',product: products[products.length-1]});
+})
+
+const PORT = 8080;
+app.listen(PORT, () => {
+    console.log(`Server running on ${PORT}`)
+}) 
