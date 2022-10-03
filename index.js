@@ -963,7 +963,7 @@ let products = [
     "name": "Original Frankfurter grüne Soße"
     }
 ]
-let lastCreatedId = 100;
+let idStart = 100;
 // const cors = require('cors');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -1006,7 +1006,7 @@ app.delete('/products/:id',(req,res) => {
 app.post('/products',(req,res) => {
     products.push({
         ...req.body,
-        id: lastCreatedId
+        id: idStart
       });
       res.status(201).send({message:'Products added!',product: products[products.length-1]});
 })
