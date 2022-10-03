@@ -990,3 +990,18 @@ app.get('/products/:id',(req,res) => {
     else
         res.status(404).json({message: 'Product Not Found!'})
 })
+
+//delete product by id
+app.delete('/products/:id',(req,res) => {
+    let id = req.params.id;
+    let product = products.find(x=>x.id == id);
+
+    let idx = products.indexOf(product)
+    products.splice(idx, 1)
+
+
+    if (product)
+        res.send(`${product.name} deleted!`)
+    else
+        res.status(404).json({message: 'Product Not Found!'})
+})
